@@ -10,7 +10,7 @@ Can be trustely used in Prod, just check all keywords described in your schema a
 
 ```scala
 
-val jsonSchema =
+    val jsonSchema =
     Json.parse(
       """
         {
@@ -32,7 +32,8 @@ val jsonSchema =
               "type": "integer",
               "minimum": 0
             }
-          }
+          },
+          "required": ["lastName"]
         }
       """)
       
@@ -40,13 +41,15 @@ val jsonSchema =
       Json.parse(
         """{
            "firstName": "John",
-           "lastName": "Doe",
-           "age": "-1"
+           "age": -1
          }""")
 
     JsValidation.from(jsonSchema).appliedTo(person).matches {
       case AssertionSuccessfulResult(_) => fail()
-      case AssertionFailureResult(firstError :: _) => firstError should be("Person.age is expected to be int")
+      case AssertionFailureResult(errors) => errors should be(
+        List(
+          "Property Person.lastName is missing",
+          "Person.age is smaller than required minimum value of 0"))
     }
 
 ```
