@@ -1,0 +1,32 @@
+/target
+.env
+
+# eclipse
+/.classpath
+/.project
+/.settings
+
+# IntelliJ IDEA
+/.idea
+*.iml
+
+# Mac
+.DS_Store
+**/.DS_Store
+
+# Windows
+Thumbs.db
+/bin/
+
+/db
+/logs/
+/modules
+/project/project
+/project/target
+tmp/
+test-result
+server.pid
+/dist/
+.cache
+/ddata-*
+
